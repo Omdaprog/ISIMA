@@ -45,9 +45,7 @@
             <div id="app">
                 <input name="image" type="file" @change="onFileChange" multiple />
 
-                <div id="preview">
-                    <img v-if="url" :src="url" />
-                </div>
+                
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -82,8 +80,7 @@
             },
             methods: {
                 onFileChange(e) {
-                    const file = e.target.files[0];
-                    this.url = URL.createObjectURL(file);
+                    console.log(event.target.files);
                 }
             }
         })

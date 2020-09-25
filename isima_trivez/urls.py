@@ -4,5 +4,5 @@ from .views import homepage
 app_name = 'isima_trivez'
 
 urlpatterns = [
-    path('',homepage ,name='homepage')
+    path('',homepage.as_view() ,name='homepage')
 ]
