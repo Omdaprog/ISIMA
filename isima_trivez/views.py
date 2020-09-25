@@ -33,6 +33,7 @@ class homepage(FormView):
             for f in files:
                 print(f)
                 file_instance = PdfStore(resumes=f)
+                file_instance.save()
             return render(request,"base.html")
         else:
             return render(request,"base.html")
