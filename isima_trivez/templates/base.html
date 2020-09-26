@@ -45,7 +45,11 @@
             <div id="app">
                 <input name="image" type="file" @change="onFileChange" multiple />
 
-                
+                <div id="preview">
+                    <img v-if="urls.url1" :src="url1" />
+                    <img v-if="urls.url2" :src="url2" />
+                    <img v-if="urls.url3" :src="url3" />
+                </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -75,12 +79,25 @@
             el: '#app',
             data() {
                 return {
-                    url: null,
+                    urls:{
+                        url1: null,
+                        url2: null,
+                        url3: null,
+
+                    }
                 }
             },
             methods: {
                 onFileChange(e) {
-                    console.log(event.target.files);
+                    
+                    const file0 = e.target.files[0];
+                    const file1 = e.target.files[1];
+                    const file2 = e.target.files[2];
+                    
+                    this.urls.url1 = URL.createObjectURL(file0);
+                    this.urls.url2 = URL.createObjectURL(file0);
+                    this.urls.url3 = URL.createObjectURL(file0);
+                    console.log(URL.createObjectURL(file0))
                 }
             }
         })

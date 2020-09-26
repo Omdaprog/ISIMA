@@ -33,7 +33,7 @@ class homepage(FormView):
             for f in files:
                 print(f)
                 file_instance = PdfStore(resumes=f)
-                file_instance.save()
+                file_instance.save() # https://github.com/Bhagyalakshmi18/Resume_django/blob/master/web_app/views.py
             return render(request,"base.html")
         else:
             return render(request,"base.html")
