@@ -6,7 +6,6 @@ class PdfStore(models.Model):
     matire = models.CharField(max_length=100)
     degree = models.CharField(max_length=100)
     description = models.TextField()
-    image = models.FileField(blank=True, null=True)
     slug = models.SlugField()
 
     def __str__(self):
@@ -16,3 +15,7 @@ class PdfStore(models.Model):
         return reverse("isima_trivez:detail", kwargs={
             'slug': self.slug
         })
+
+class PdfImages(models.Model):
+    post = models.ForeignKey(PdfStore, on_delete=models.CASCADE)
+    image = models.FileField(blank=True, null=True)
