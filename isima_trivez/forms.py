@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import PdfStore , PdfImages 
+from .models import PdfStore 
 from django import forms
 
 class UploadForm(ModelForm):
@@ -8,18 +8,16 @@ class UploadForm(ModelForm):
     degree = forms.CharField()
     description = forms.CharField()
     slug = forms.CharField()
+    image = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+
     
 
     class Meta: 
         model = PdfStore  
-        fields = ['title','matire','degree','description','slug']
+        fields = ['title','matire','degree','description','slug','image']
 
-class UploadImages(forms.ModelForm):
-    pass
-#     # image = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
-#     class Meta:
-#         model = PdfImages
-#         fields= ['image']
+
+    
 
 #         widgets = {
 #             'image': forms.ClearableFileInput(attrs={'multiple': True}) 
