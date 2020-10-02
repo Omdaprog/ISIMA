@@ -1,24 +1,25 @@
 from django.forms import ModelForm
-from .models import PdfStore 
+from .models import Post , UploadImages
 from django import forms
 
-class UploadForm(ModelForm):
+class Post_info_form(ModelForm):
     title = forms.CharField()
     matire = forms.CharField()
     degree = forms.CharField()
     description = forms.CharField()
     slug = forms.CharField()
-    image = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+    
 
     
 
     class Meta: 
-        model = PdfStore  
-        fields = ['title','matire','degree','description','slug','image']
+        model = Post  
+        fields = ['title','matire','degree','description','slug']
 
 
     
 
-#         widgets = {
-#             'image': forms.ClearableFileInput(attrs={'multiple': True}) 
-#         }
+class Upload_image_form(forms.Form):   
+    image = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+
+    

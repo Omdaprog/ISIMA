@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import PdfStore
+from .models import Post, UploadImages
 
-admin.site.register(PdfStore)
-# admin.site.register(PdfImages)
+admin.site.register(Post)
+admin.site.register(UploadImages)

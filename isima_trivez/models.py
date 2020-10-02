@@ -1,12 +1,12 @@
 from django.db import models
 from django.shortcuts import reverse
 
-class PdfStore(models.Model):
+class Post(models.Model):
     title = models.CharField(max_length=100)
     matire = models.CharField(max_length=100)
     degree = models.CharField(max_length=100)
     description = models.TextField()
-    image = models.FileField(blank=True, null=True,upload_to='images/')
+    
     slug = models.SlugField()
 
     def __str__(self):
@@ -17,3 +17,9 @@ class PdfStore(models.Model):
             'slug': self.slug
         })
 
+class UploadImages(models.Model):
+    post = models.ForeignKey(Post, default=None, on_delete=models.CASCADE)
+    image = models.FileField(blank=True, null=True,upload_to='images/')
+    
+    def __str__(self):
+        return self.post.title
