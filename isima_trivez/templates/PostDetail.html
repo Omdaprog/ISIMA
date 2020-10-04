@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}
+HomePage
+{% endblock title %}
+
+{% block style %}
+<style>
+    body {
+        background-color: #e2e2e2;
+    }
+
+    #app {
+        padding: 20px;
+    }
+
+    #preview {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #preview img {
+        max-width: 50%;
+        max-height: 250px;
+    }
+</style>
+{% endblock style %}
+
+{% block content %}
+<div class="container">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="formGroupExampleInput">title</label>
+            <input name="title" type="text" class="form-control" placeholder="Example input">
+        </div>
+
+        <div class="form-group">
+            <label for="formGroupExampleInput">matiere</label>
+            <input name="matire" type="text" class="form-control" placeholder="Example input">
+        </div>
+
+        <div class="form-group">
+            <label for="formGroupExampleInput">degree</label>
+            <input name="degree" type="text" class="form-control" placeholder="Example input">
+        </div>
+
+        <div class="form-group">
+            <label for="formGroupExampleInput">description</label>
+            <input name="description" type="text" class="form-control" placeholder="Example input">
+        </div>
+
+        <div class="form-group">
+            <label for="formGroupExampleInput">slug</label>
+            <input name="slug" type="text" class="form-control" placeholder="Example input">
+        </div>
+
+        <div id="app">
+            <input name="image" type="file" @change="onFileChange" multiple />
+
+            <div id="preview">
+                <img v-if="urls.url1" :src="urls.url1" />
+                <img style="margin-left: 15px;margin-right: 15px;" v-if="urls.url2" :src="urls.url2" />
+                <img v-if="urls.url3" :src="urls.url3" />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+
+</div>
+
+
+{% endblock content %}
+
+
+{% block extra_scripts %}
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+                urls:{
+                    url1: null,
+                    url2: null,
+                    url3: null,
+
+                }
+            }
+        },
+        methods: {
+            onFileChange(e) {
+                
+                const file0 = e.target.files[0];
+                const file1 = e.target.files[1];
+                const file2 = e.target.files[2];
+                
+                this.urls.url1 = URL.createObjectURL(file0);
+                this.urls.url2 = URL.createObjectURL(file1);
+                this.urls.url3 = URL.createObjectURL(file2);
+                console.log(URL.createObjectURL(file0))
+            }
+        }
+    })
+</script>
+{% endblock extra_scripts %}

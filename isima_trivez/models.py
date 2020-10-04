@@ -1,6 +1,7 @@
 from django.db import models
 from django.shortcuts import reverse
 
+
 class Post(models.Model):
     title = models.CharField(max_length=100)
     matire = models.CharField(max_length=100)

@@ -1,6 +1,18 @@
 from django.shortcuts import render, redirect
 from .forms import Post_info_form, Upload_image_form
 from .models import Post,UploadImages
+from django.views.generic import ListView
+
+
+class HomeView(ListView):
+    model = Post
+    paginate_by = 10
+    template_name = "HomePage.html"
+
+
+
+
+
 
 def upload_post(request):
     
@@ -26,7 +38,7 @@ def upload_post(request):
         'post_info': post_info,
         'images_uploded': images_uploded
     }
-    return render(request, 'base.html', context)
+    return render(request, 'PostDetail.html', context)
 
 
 

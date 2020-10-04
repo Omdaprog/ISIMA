@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% for object in object_list %}
+    {% for p in object.uploadimages_set.all %}
+    <img height="300px" width="400px" src="{{p.image.url}}" alt="">
+    {% endfor %}
+    
+{% endfor %}
+
+{% endblock content %}
