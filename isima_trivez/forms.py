@@ -8,18 +8,16 @@ class Post_info_form(ModelForm):
     degree = forms.CharField()
     description = forms.CharField()
     slug = forms.CharField()
-    
-
-    
-
     class Meta: 
         model = Post  
         fields = ['title','matire','degree','description','slug']
 
-
-    
-
 class Upload_image_form(forms.Form):   
     image = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
+class SearchForm(forms.Form):
+    # Class = forms.ChoiceField()
+    # matiere = forms.ChoiceField()
+    # cour_td = 
+    pass
     

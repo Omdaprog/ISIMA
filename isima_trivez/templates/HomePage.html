@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block extra_head %}
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+{% endblock %}
+
 {% block style %}
 <style>
     * {
@@ -18,18 +22,111 @@
 
     }
 
-    .Block {
+    .Block{
+    position: absolute;
+    width: 100%;
+    height: 40%;
+    top: 30%;
+    margin: auto;
+    background: rgba(0, 0, 0, 0.445);
+    display: flex;
+    justify-content: center;
+    
+}
+
+    /* Form style */
+    .form-control {
+        height: calc(2.25rem + 3px) !important;
+        font-size: 1rem !important;
+        color: white !important;
+        background-color: rgba(0, 0, 0, 0.452) !important;
+        border: 2px solid rgba(0, 255, 0, 0.452) !important;
+        font-family: 'Inconsolata', monospace !important;
+    }
+
+    /* DEMO-SPECIFIC STYLES */
+    #parent {
+        height: 53px;
+        white-space: nowrap;
+        overflow: hidden;
+        font-family: 'Inconsolata', monospace !important;
+        font-size: 32px;
+        color: white;
+        position: relative;
+    }
+
+    #Border {
+        border-bottom: solid 3px rgba(0, 255, 0, .75);
         position: absolute;
-        width: 100%;
-        height: 40%;
-        top: 30%;
+        right: -7px;
+        width: 20px;
+    }
 
-        margin: auto;
-        background: red;
+    /* Animation */
+    #parent {
+        animation: animated-text 2s steps(30, end) 1s 1 normal both
+    }
 
-        display: flex;
-        justify-content: center;
+    #Border {
+        animation: animated-cursor 600ms steps(30, end) infinite;
+    }
 
+
+
+    /* text animation */
+
+    @keyframes animated-text {
+        from {
+            width: 0;
+        }
+
+        to {
+            width: 330px;
+        }
+    }
+
+    /* cursor animations */
+
+    @keyframes animated-cursor {
+        from {
+            border-bottom-color: rgba(0, 255, 0, .75);
+        }
+
+        to {
+            border-bottom-color: transparent;
+        }
+    }
+
+    @media only screen and (max-width: 1024px) {
+        form {
+            width: 80% !important;
+        }
+    }
+
+    @media only screen and (max-width: 767px) {
+        form {
+            width: 95% !important;
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        form {
+            width: 60% !important;
+        }
+
+        .form-row {
+            display: block !important;
+        }
+
+        .col-4 {
+            max-width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .col-3 {
+            max-width: 100%;
+            margin: auto;
+        }
     }
 </style>
 {% endblock style %}
@@ -37,93 +134,106 @@
 {% block content %}
 
 <canvas style="width: 100%; height: auto; z-index: -1;" id="c"></canvas>
-<div class="Block d-flex align-items-start flex-column ">
-    <div class="  p-2 ">
-        <form>
+<div class="Block d-flex flex-column ">
+    <div class="p-2 d-flex justify-content-center ">
+        <div id="parent">Find what you want.<div id="Border"></div>
+        </div>
+    </div>
+
+    <div style="margin-top: 30px;" class="d-flex justify-content-center flex-wrap p-2 ">
+        <form method="POST" id="form" style="width: 60%; margin: auto;">
+            {% csrf_token %}
             <div class="form-row">
-                <div class="col-7">
-                    <input type="text" class="form-control" placeholder="City">
+                <div class="col-4">
+                    <select name="Class" class="form-control form-control" id="inlineFormCustomSelect">
+                        <option selected>Votre Classe</option>
+                        <option value="1">LCS2 A</option>
+                        <option value="2">LCS2 B</option>
+                        <option value="3">LCS2 C</option>
+                        <option value="3">LCS2 D</option>
+                    </select>
                 </div>
-                <div class="col">
-                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                        <option selected>Choose...</option>
+                <div class="col-4">
+                    <select name="matiere" class="form-control form-control" id="inlineFormCustomSelect">
+                        <option selected>Matiére</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
                     </select>
                 </div>
-                <div class="col">
-                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                        <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                <div class="col-3">
+                    <select name="cour_td" class="form-control form-control" id="inlineFormCustomSelect">
+                        <option selected>Cours ou TD </option>
+                        <option value="1">TD</option>
+                        <option value="2">Cours</option>
+
                     </select>
+                </div>
+                <div style="margin: auto; margin-top: 10px;" class="col-3">
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </form>
     </div>
-
-</div>
-<!-- {% for object in object_list %}
+    <!-- {% for object in object_list %}
     {% for p in object.uploadimages_set.all %}
         <img height="300px" width="400px" src="{{p.image.url}}" alt="">
     {% endfor %}
 {% endfor %} -->
 
-{% endblock content %}
+    {% endblock content %}
 
-{% block extra_scripts %}
-<script>
-    // geting canvas by id c
-    var c = document.getElementById("c");
-    var ctx = c.getContext("2d");
+    {% block extra_scripts %}
+    <script>
+        // geting canvas by id c
+        var c = document.getElementById("c");
+        var ctx = c.getContext("2d");
 
-    //making the canvas full screen
-    c.height = window.innerHeight;
-    c.width = window.innerWidth;
+        //making the canvas full screen
+        c.height = window.innerHeight;
+        c.width = window.innerWidth;
 
-    //chinese characters - taken from the unicode charset
-    var matrix = "1 0";
-    //converting the string into an array of single characters
-    matrix = matrix.split("");
+        //chinese characters - taken from the unicode charset
+        var matrix = "1 0";
+        //converting the string into an array of single characters
+        matrix = matrix.split("");
 
-    var font_size = 20;
-    var columns = c.width / font_size; //number of columns for the rain
-    //an array of drops - one per column
-    var drops = [];
-    //x below is the x coordinate
-    //1 = y co-ordinate of the drop(same for every drop initially)
-    for (var x = 0; x < columns; x++)
-        drops[x] = 1;
+        var font_size = 20;
+        var columns = c.width / font_size; //number of columns for the rain
+        //an array of drops - one per column
+        var drops = [];
+        //x below is the x coordinate
+        //1 = y co-ordinate of the drop(same for every drop initially)
+        for (var x = 0; x < columns; x++)
+            drops[x] = 1;
 
-    //drawing the characters
-    function draw() {
-        //Black BG for the canvas
-        //translucent BG to show trail
-        ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
-        ctx.fillRect(0, 0, c.width, c.height);
+        //drawing the characters
+        function draw() {
+            //Black BG for the canvas
+            //translucent BG to show trail
+            ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+            ctx.fillRect(0, 0, c.width, c.height);
 
-        ctx.fillStyle = "#0F0"; //green text
-        ctx.font = font_size + "px arial";
-        //looping over drops
-        for (var i = 0; i < drops.length; i++) {
-            //a random chinese character to print
-            var text = matrix[Math.floor(Math.random() * matrix.length)];
-            //x = i*font_size, y = value of drops[i]*font_size
-            ctx.fillText(text, i * font_size, drops[i] * font_size);
+            ctx.fillStyle = "#0F0"; //green text
+            ctx.font = font_size + "px arial";
+            //looping over drops
+            for (var i = 0; i < drops.length; i++) {
+                //a random chinese character to print
+                var text = matrix[Math.floor(Math.random() * matrix.length)];
+                //x = i*font_size, y = value of drops[i]*font_size
+                ctx.fillText(text, i * font_size, drops[i] * font_size);
 
-            //sending the drop back to the top randomly after it has crossed the screen
-            //adding a randomness to the reset to make the drops scattered on the Y axis
-            if (drops[i] * font_size > c.height && Math.random() > 0.975)
-                drops[i] = 0;
+                //sending the drop back to the top randomly after it has crossed the screen
+                //adding a randomness to the reset to make the drops scattered on the Y axis
+                if (drops[i] * font_size > c.height && Math.random() > 0.975)
+                    drops[i] = 0;
 
-            //incrementing Y coordinate
-            drops[i]++;
+                //incrementing Y coordinate
+                drops[i]++;
+            }
         }
-    }
 
-    setInterval(draw, 35);
+        setInterval(draw, 35);
 
-</script>
-{% endblock extra_scripts %}
+    </script>
+    {% endblock extra_scripts %}
