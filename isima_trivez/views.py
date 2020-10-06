@@ -1,24 +1,32 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import Post_info_form, Upload_image_form, SearchForm
 from .models import Post,UploadImages
 from django.views.generic import ListView, View
 
 
-class HomeView(View):
-    
+class HomeView(ListView):
+    template_name = 'PostPage.html'
+    model = Post
+
+
     def get(self, *args, **kwargs):
         form = SearchForm()
         context = {'form':form}
         return render(self.request,"HomePage.html",context)
-    def post(self, *args, **kwargs):
-        # Must get data with forms.ChoiceField() , create choise dictionary, but it's too long  
+    def get_queryset(self):
+        # Must get data with forms.ChoiceField() , create choise dictionary, but .... it's too long  
         Class = self.request.POST.get('Class')
         matiere = self.request.POST.get('matiere')
         cour_td = self.request.POST.get('cour_td')
 
-        print(Class + matiere +cour_td)
-        
-        return redirect("isima_trivez:new_post")
+        # print(Class + matiere +cour_td)
+        data = Class + matiere +cour_td
+        object_list =self.model.objects.filter(matire=matiere,degree=Class )
+        return object_list 
+    def post(self, *args, **kwargs):
+        data = self.get_queryset()
+        context = {'data':data}
+        return render(self.request, 'PostPage.html', context)
 
 
 #TODO:Post the posts that match with value searched 

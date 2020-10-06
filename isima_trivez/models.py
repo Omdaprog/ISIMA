@@ -7,7 +7,7 @@ class Post(models.Model):
     matire = models.CharField(max_length=100)
     degree = models.CharField(max_length=100)
     description = models.TextField()
-    
+    # add colum for (TD ou cours)
     slug = models.SlugField()
 
     def __str__(self):
