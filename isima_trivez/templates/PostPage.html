@@ -1,6 +1,179 @@
 {% extends 'base.html' %}
-{% block content %}
 
-<h1>{{data}}</h1>
+{% block extra_head %}
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block style %}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background: black;
+
+    }
+    #login{
+        margin-top: 20px;
+        /* color: #0F0; */
+        color: white;
+        font-size: 30px;
+        font-family: 'Inconsolata', monospace !important;
+    }
+    #Signup{
+        
+        /* color: #0F0; */
+        color: white;
+        font-size: 30px;
+        font-family: 'Inconsolata', monospace !important;
+    }
+    .R-title{
+        color: white;
+        font-family: 'Inconsolata', monospace;
+        font-size: 20px;
+    }
+    .form-control {
+        margin-top: 10px;
+        height: calc(2.25rem + 3px) !important;
+        font-size: 1rem !important;
+        color: white !important;
+        background-color: rgba(0, 0, 0, 0.452) !important;
+        border: 2px solid rgba(0, 255, 0, 0.452) !important;
+        font-family: 'Inconsolata', monospace !important;
+        
+    }
+    .form-control:hover{
+        cursor: pointer;
+        background-color:rgba(0, 255, 0, 0.452) !important;
+    }
+    #button {
+        color: #fff;
+        background-color:rgba(0, 0, 0, 0.452) !important;
+        border: 2px solid rgba(0, 255, 0, 0.452) !important;
+        padding-left: 20px!important;
+        padding-right: 20px!important;
+    }
+    #button:hover {
+        background-color:rgba(0, 255, 0, 0.452) !important;
+    }
+
+</style>
+{% endblock style %}
+
+{% block content %}
+<div style="margin: 0;" class="row">
+    <div style="border-right: 5px solid seagreen; height: 100vh;" class="col">
+        <nav class="nav flex-column">
+            <a id="login" class="nav-link" href="#">Log In</a>
+            <a id="Signup" class="nav-link" href="#">Sugn Up</a>
+            <div style="margin-top: 30px;" class="d-flex justify-content-center flex-wrap ">
+                <form method="POST" id="form" >
+                    {% csrf_token %}
+                    <div style="display: block !important;" class="form-row">
+                        <div class="col">
+                            <h4 class="R-title">Recherche</h4>
+                            <select name="Class" class="form-control form-control" id="inlineFormCustomSelect">
+                                <option selected>Votre Classe</option>
+                                <option value="LCS2 A">LCS2 A</option>
+                                <option value="LCS2 B">LCS2 B</option>
+                                <option value="LCS2 C">LCS2 C</option>
+                                <option value="LCS2 D">LCS2 D</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <select name="matiere" class="form-control form-control" id="inlineFormCustomSelect">
+                                <option selected>Matiére</option>
+                                <option value="One">One</option>
+                                <option value="Two">Two</option>
+                                <option value="Three">Three</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <select name="cour_td" class="form-control form-control" id="inlineFormCustomSelect">
+                                <option selected>Cours ou TD </option>
+                                <option value="1">TD</option>
+                                <option value="2">Cours</option>
+
+                            </select>
+                        </div>
+                        <div style="margin: auto; margin-top: 10px;" class="col">
+                            <button id="button" type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </nav>
+    </div>
+
+    <div class="col-10">
+        <div class="container">
+            <div class="d-flex align-content-stretch justify-content-between flex-wrap">
+                <div style="margin-right: 10px; margin-top: 50px; width: 30%;" class=" card">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+                <div style="margin-right: 10px; margin-top: 50px; width: 30%;" class=" card">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+                <div style="margin-right: 10px; margin-top: 50px; width: 30%;" class=" card">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+
+                <div style="margin-right: 10px; margin-top: 50px; width: 30%;" class=" card">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+
+                <div style="margin-right: 10px; margin-top: 50px; width: 30%;" class=" card">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+
+                <div style="margin-right: 10px; margin-top: 50px; width: 30%;" class=" card">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+</div>
+
+
+
 
 {% endblock content %}

@@ -43,6 +43,20 @@
         border: 2px solid rgba(0, 255, 0, 0.452) !important;
         font-family: 'Inconsolata', monospace !important;
     }
+    #button {
+        color: #fff;
+        background-color:rgba(0, 0, 0, 0.452) !important;
+        border: 2px solid rgba(0, 255, 0, 0.452) !important;
+        padding-left: 20px!important;
+        padding-right: 20px!important;
+    }
+    .form-control:hover{
+        cursor: pointer;
+        background-color:rgba(0, 255, 0, 0.452) !important;
+    }
+    #button:hover {
+        background-color:rgba(0, 255, 0, 0.452) !important;
+    }
 
     /* DEMO-SPECIFIC STYLES */
     #parent {
@@ -170,7 +184,7 @@
                     </select>
                 </div>
                 <div style="margin: auto; margin-top: 10px;" class="col-3">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button id="button" type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </form>

@@ -20,7 +20,7 @@ class HomeView(ListView):
         cour_td = self.request.POST.get('cour_td')
 
         # print(Class + matiere +cour_td)
-        data = Class + matiere +cour_td
+        # data = Class + matiere +cour_td
         object_list =self.model.objects.filter(matire=matiere,degree=Class )
         return object_list 
     def post(self, *args, **kwargs):
