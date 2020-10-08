@@ -59,6 +59,12 @@
         background-color:rgba(0, 255, 0, 0.452) !important;
     }
 
+    .card{
+        background-color: black;
+        font-family: 'Inconsolata', monospace !important;
+        border: 2px solid  rgba(0, 255, 0, 0.452) !important;
+    }
+
 </style>
 {% endblock style %}
 
@@ -99,68 +105,34 @@
                             </select>
                         </div>
                         <div style="margin: auto; margin-top: 10px;" class="col">
-                            <button id="button" type="submit" class="btn btn-primary">Submit</button>
+                            <button id="button" type="submit" class="btn ">Submit</button>
                         </div>
                     </div>
                 </form>
             </div>
         </nav>
     </div>
-
+    
+           
+        
     <div class="col-10">
         <div class="container">
             <div class="d-flex align-content-stretch justify-content-between flex-wrap">
                 <div style="margin-right: 10px; margin-top: 50px; width: 30%;" class=" card">
-                    <img class="card-img-top" src="..." alt="Card image cap">
+                    {% for post in data %}
+                    {% for i in post.uploadimages_set.all %}
+                        <img class="card-img-top" src="{{i.image.url}}" alt="Card image cap">
+                    {%endfor%}
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
-                <div style="margin-right: 10px; margin-top: 50px; width: 30%;" class=" card">
-                    <img class="card-img-top" src="..." alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
-                <div style="margin-right: 10px; margin-top: 50px; width: 30%;" class=" card">
-                    <img class="card-img-top" src="..." alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
+                        <h5 style="color: white;" class="card-title">{{post.title}}</h5>
+                        <p style="color: white;" class="card-text">{{post.description}}.</p>
+                        <p class="card-text"><small style="color: white;" >Last updated 3 mins ago</small></p>
+                        <button id="button" type="submit" class="btn ">Download</button>
+                        <button style="float: right;" id="button" type="submit" class="btn ">Detail</button>
 
-                <div style="margin-right: 10px; margin-top: 50px; width: 30%;" class=" card">
-                    <img class="card-img-top" src="..." alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
-                </div>
-
-                <div style="margin-right: 10px; margin-top: 50px; width: 30%;" class=" card">
-                    <img class="card-img-top" src="..." alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
-
-                <div style="margin-right: 10px; margin-top: 50px; width: 30%;" class=" card">
-                    <img class="card-img-top" src="..." alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
+                    {%endfor%}
+                
                 
                 
             </div>
