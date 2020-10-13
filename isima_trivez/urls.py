@@ -1,12 +1,14 @@
 from django.urls import path
 from .views import (
     upload_post,
-    HomeView,
+    SearchView,
+    PostsView,
 )
 
 app_name = 'isima_trivez'
 
 urlpatterns = [
-    path('',HomeView.as_view() ,name='homepage'),
+    path('',SearchView.as_view() ,name='homepage'),
+    path('posts/<data>',PostsView.as_view(),name='list_of_post'), 
     path('new',upload_post ,name='new_post')
 ]
