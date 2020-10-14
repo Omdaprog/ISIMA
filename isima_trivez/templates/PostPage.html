@@ -118,24 +118,22 @@
     <div class="col-10">
         <div class="container">
             <div class="d-flex align-content-stretch justify-content-between flex-wrap">
-                <div style="margin-right: 10px; margin-top: 50px; width: 30%;" class=" card">
-                    {% for post in data %}
-                    {% for i in post.uploadimages_set.all %}
-                        <img class="card-img-top" src="{{i.image.url}}" alt="Card image cap">
-                    {%endfor%}
-                    <div class="card-body">
-                        <h5 style="color: white;" class="card-title">{{post.title}}</h5>
-                        <p style="color: white;" class="card-text">{{post.description}}.</p>
-                        <p class="card-text"><small style="color: white;" >Last updated 3 mins ago</small></p>
-                        <button id="button" type="submit" class="btn ">Download</button>
-                        <button style="float: right;" id="button" type="submit" class="btn ">Detail</button>
+                {% for object in object_list %}
+                    <div style="margin-right: 10px; margin-top: 50px; width: 30%;" class=" card">
 
+                        
+                        <img class="card-img-top" src="{{object.uploadimages_set.first.image.url}}" alt="Card image cap">
+                        
+                        <div class="card-body">
+                            <h5 style="color: white;" class="card-title">{{object.title}}</h5>
+                            <p style="color: white;" class="card-text">{{object.description}}.</p>
+                            <p class="card-text"><small style="color: white;" >Last updated 3 mins ago</small></p>
+                            <button id="button" type="submit" class="btn ">Download</button>
+                            <button style="float: right;" id="button" type="submit" class="btn ">Detail</button>
+
+                        </div> 
                     </div>
-                    {%endfor%}
-                
-                
-                
-            </div>
+                {%endfor%}
         </div>
 
 

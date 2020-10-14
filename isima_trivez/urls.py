@@ -9,6 +9,6 @@ app_name = 'isima_trivez'
 
 urlpatterns = [
     path('',SearchView.as_view() ,name='homepage'),
-    path('posts/<data>',PostsView.as_view(),name='list_of_post'), 
+    path('posts/<Class>,<matiere>,<nature>',PostsView.as_view(),name='list_of_post'), 
     path('new',upload_post ,name='new_post')
 ]
