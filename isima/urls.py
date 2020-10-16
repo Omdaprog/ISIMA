@@ -19,8 +19,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 import debug_toolbar
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
     path('', include('isima_trivez.urls', namespace='isima_trivez')),
     path('__debug__/', include(debug_toolbar.urls)),
 ]
