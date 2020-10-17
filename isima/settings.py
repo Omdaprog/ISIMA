@@ -49,11 +49,11 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
 ]
-INTERNAL_IPS = [
-    # ...
-    '127.0.0.1',
-    # ...
-]
+SITE_ID = 1
+
+
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -144,4 +144,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
-SITE_ID = 1
