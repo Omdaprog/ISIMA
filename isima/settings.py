@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'isima_trivez',
     'debug_toolbar',
 
-    #django-allauth
+    
     'django.contrib.sites',
 
     'allauth',
@@ -52,7 +52,11 @@ INSTALLED_APPS = [
 SITE_ID = 1
 
 
-
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
+]
 
 
 MIDDLEWARE = [
