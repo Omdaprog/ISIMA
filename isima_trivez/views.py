@@ -22,7 +22,7 @@ class SearchView(View):
         # Must get data with forms.ChoiceField() , create choise dictionary, but .... it's too long  
         Class = self.request.POST.get('Class')
         matiere = self.request.POST.get('matiere')
-        nature = self.request.POST.get('cour_td')
+        nature = self.request.POST.get('nature')
                
         return redirect("isima_trivez:list_of_post",Class,matiere,nature)
 
@@ -37,42 +37,71 @@ class PostsView(ListView):
     #Return the field or fields to use for ordering the queryset.
         return self.ordering
 
-    def get_queryset(self):
-        
-        if self.queryset is not None:
-            queryset = self.queryset
-            if isinstance(queryset,QuerySet):
-                queryset = queryset.all()
-        elif self.model is not None:
-            queryset = self.model.objects.filter(matire= self.kwargs['matiere'])
-        else :
-            raise ImproperlyConfigured(
-            "%(cls)s is missing a QuerySet. Define "
-            "%(cls)s.model, %(cls)s.queryset, or override "
-            "%(cls)s.get_queryset()." % {
-                'cls': self.__class__.__name__
-            })
+    def get_queryset(self,*args):
+
+        matiere = self.kwargs['matiere'] 
+        Class = self.kwargs['Class']       
+        nature = self.kwargs['nature'] 
+        print('============================================')       
+        print(Class)
+        print(not args)
+        if (not args )== True :
+            if self.queryset is not None:
+                queryset = self.queryset
+                if isinstance(queryset,QuerySet):
+                    queryset = queryset.all()
+
+            elif self.model is not None and matiere == "Matiére" and Class == "Votre Classe" and nature == "Cours ou TD":
+                queryset = self.model.objects.all()
+
+            elif self.model is not None and matiere != "Matiére" :
+                queryset = self.model.objects.filter(matire=matiere)
+
+            elif self.model is not None and matiere != "Matiére" and Class != "Votre Classe"  :
+                queryset = self.model.objects.filter(matire=matiere , degree=Class)
+
+            elif self.model is not None and matiere != "Matiére" and Class != "Votre Classe" and nature != "Cours ou TD" :
+                queryset = self.model.objects.filter(matire=matiere ,degree=Class, nature=nature )
+
+            else :
+                raise ImproperlyConfigured(
+                "%(cls)s is missing a QuerySet. Define "
+                "%(cls)s.model, %(cls)s.queryset, or override "
+                "%(cls)s.get_queryset()." % {
+                    'cls': self.__class__.__name__
+                })
+        if (not args) == False:
+            if self.model is not None and args[0] == "Matiére" and args[1] == "Votre Classe" and args[2] == "Cours ou TD":
+                queryset = self.model.objects.all()
+
+            elif self.model is not None and args[0] != "Matiére" :
+                queryset = self.model.objects.filter(matire=matiere)
+
+            elif self.model is not None and args[0] != "Matiére" and args[1] != "Votre Classe"  :
+                queryset = self.model.objects.filter(matire=matiere , degree=Class)
+
+            elif self.model is not None and args[0] != "Matiére" and args[1] != "Votre Classe" and args[2] != "Cours ou TD" :
+                queryset = self.model.objects.filter(matire=matiere ,degree=Class, nature=nature )
         
         ordering = self.get_ordering()
         if ordering : 
             if isinstance(ordering, str):
                 ordering = (ordering,)
-            
             queryset = queryset.order_by(*ordering)
-        
-        
         return queryset
 
-    # def get_context_data(self, * , objects_list=self.get_queryset):
-    #     zipfile = ZipFile('example.zip')
+    def post(self, request, *args, **kwargs):
+        Class = self.request.POST.get('Class')
+        matiere = self.request.POST.get('matiere')
+        nature = self.request.POST.get('nature')
+        object_list = self.get_queryset(Class, matiere, nature)
 
-    #     for Objects in objects_list:
-    #         for objects.UploadImages_set.all in Obj:
+        return render(request, self.template_name, {'object_list':object_list})
 
-        
-    #     context = {
-    #         'object_list':objects_list,
-    #     }
+    
+
+
+   
 
 
 
