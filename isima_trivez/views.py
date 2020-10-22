@@ -6,10 +6,10 @@ from django.http import HttpResponse
 from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, View
+from django.db.models import Q
+from django.views.generic import ListView, View, DeleteView
 from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured
 from django.db.models.query import QuerySet
-from django.db.models import Q
 
 
 class SearchView(View):
@@ -73,7 +73,11 @@ class PostsView(ListView):
             print("post_list_page")
             if self.model is not None :
                 
-                queryset = self.model.objects.filter(Q(matire=args[0]) | Q(degree=args[1]) | Q(nature=args[2]))
+                queryset = self.model.objects.filter(
+                                Q(matire=args[0]) |
+                                Q(degree=args[1]) | 
+                                Q(nature=args[2])
+                            )
                 print(f"=============={queryset}")
        
         ordering = self.get_ordering()
@@ -142,6 +146,9 @@ def download_zip_file(self, pk):
     return response
 
 
+class PostDetailView(DeleteView):
+    model = UploadImages
+    template_name = "Detail-page.html"
 
 
 

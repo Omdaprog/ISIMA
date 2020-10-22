@@ -129,7 +129,7 @@
                             <p style="color: white;" class="card-text">{{object.description}}.</p>
                             <p class="card-text"><small style="color: white;" >Last updated 3 mins ago</small></p>
                             <button id="button" type="submit" class="btn "><a href="{% url 'isima_trivez:download' pk=object.pk %}" >Download</a> </button>
-                            <button style="float: right;" id="button" type="submit" class="btn ">Detail</button>
+                            <button style="float: right;" id="button"  class="btn "><a href="{% url 'isima_trivez:post' pk=object.pk %}">Detail </a></button>
 
                         </div> 
                     </div>
