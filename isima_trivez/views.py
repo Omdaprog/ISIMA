@@ -9,6 +9,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, View
 from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured
 from django.db.models.query import QuerySet
+from django.db.models import Q
 
 
 class SearchView(View):
@@ -42,26 +43,24 @@ class PostsView(ListView):
         matiere = self.kwargs['matiere'] 
         Class = self.kwargs['Class']       
         nature = self.kwargs['nature'] 
-        print('============================================')       
-        print(Class)
-        print(not args)
+        # print('============================================')       
+        # print(Class)
+        
         if (not args )== True :
+            print("homepage")
             if self.queryset is not None:
                 queryset = self.queryset
                 if isinstance(queryset,QuerySet):
                     queryset = queryset.all()
 
-            elif self.model is not None and matiere == "Matiére" and Class == "Votre Classe" and nature == "Cours ou TD":
-                queryset = self.model.objects.all()
+            elif self.model is not None :
+                queryset = self.model.objects.filter(
+                                Q(matire=matiere)| 
+                                Q(degree=Class)  | 
+                                Q(nature=nature)
+                            )
 
-            elif self.model is not None and matiere != "Matiére" :
-                queryset = self.model.objects.filter(matire=matiere)
-
-            elif self.model is not None and matiere != "Matiére" and Class != "Votre Classe"  :
-                queryset = self.model.objects.filter(matire=matiere , degree=Class)
-
-            elif self.model is not None and matiere != "Matiére" and Class != "Votre Classe" and nature != "Cours ou TD" :
-                queryset = self.model.objects.filter(matire=matiere ,degree=Class, nature=nature )
+            
 
             else :
                 raise ImproperlyConfigured(
@@ -70,19 +69,13 @@ class PostsView(ListView):
                 "%(cls)s.get_queryset()." % {
                     'cls': self.__class__.__name__
                 })
-        if (not args) == False:
-            if self.model is not None and args[0] == "Matiére" and args[1] == "Votre Classe" and args[2] == "Cours ou TD":
-                queryset = self.model.objects.all()
-
-            elif self.model is not None and args[0] != "Matiére" :
-                queryset = self.model.objects.filter(matire=matiere)
-
-            elif self.model is not None and args[0] != "Matiére" and args[1] != "Votre Classe"  :
-                queryset = self.model.objects.filter(matire=matiere , degree=Class)
-
-            elif self.model is not None and args[0] != "Matiére" and args[1] != "Votre Classe" and args[2] != "Cours ou TD" :
-                queryset = self.model.objects.filter(matire=matiere ,degree=Class, nature=nature )
-        
+        elif (not args) == False:
+            print("post_list_page")
+            if self.model is not None :
+                
+                queryset = self.model.objects.filter(Q(matire=args[0]) | Q(degree=args[1]) | Q(nature=args[2]))
+                print(f"=============={queryset}")
+       
         ordering = self.get_ordering()
         if ordering : 
             if isinstance(ordering, str):
@@ -94,7 +87,7 @@ class PostsView(ListView):
         Class = self.request.POST.get('Class')
         matiere = self.request.POST.get('matiere')
         nature = self.request.POST.get('nature')
-        object_list = self.get_queryset(Class, matiere, nature)
+        object_list = self.get_queryset(matiere,Class, nature)
 
         return render(request, self.template_name, {'object_list':object_list})
 
