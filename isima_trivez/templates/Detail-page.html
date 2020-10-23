@@ -5,9 +5,7 @@
 {% endblock %}
 
 {% block content %}
-
-    <h1>{{object.image.url}}</h1>
-
-<!--Carousel Wrapper-->
-
+{%for obj in object%}
+    <h1>{{obj}}</h1>
+{% endfor %}
 {% endblock %}
