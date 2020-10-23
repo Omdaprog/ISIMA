@@ -182,7 +182,7 @@ class PostDetailView(DeleteView):
             for q in queryset:
                 for obj in q.uploadimages_set.all():
                     images.append(obj.image.url) 
-            obj = queryset.get()
+            
         except queryset.model.DoesNotExist:
             raise Http404(_("No %(verbose_name)s found matching the query") %
                           {'verbose_name': queryset.model._meta.verbose_name})
