@@ -107,6 +107,7 @@
                         <div style="margin: auto; margin-top: 10px;" class="col">
                             <button id="button" type="submit" class="btn ">Submit</button>
                         </div>
+                        
                     </div>
                 </form>
             </div>
@@ -128,15 +129,15 @@
                             <h5 style="color: white;" class="card-title">{{object.title}}</h5>
                             <p style="color: white;" class="card-text">{{object.description}}.</p>
                             <p class="card-text"><small style="color: white;" >Last updated 3 mins ago</small></p>
-                            <button id="button" type="submit" class="btn "><a href="{% url 'isima_trivez:download' pk=object.pk %}" >Download</a> </button>
-                            <button style="float: right;" id="button"  class="btn "><a href="{% url 'isima_trivez:post' pk=object.pk %}">Detail </a></button>
+                            <button id="button" type="submit" class="btn "><a href="{% url 'isima_trivez:download' pk=object.pk %}" ></a>Download</button>
+                            <button style="float: right;" id="button" data-toggle="modal" data-target="#modal-{{object.id}}" class="btn">Detail </button>
 
                         </div> 
                     </div>
                 {%endfor%}
         </div>
 
-
+        {% include 'Detail-page.html' %}
 
     </div>
 
