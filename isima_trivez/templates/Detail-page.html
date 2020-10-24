@@ -1,10 +1,6 @@
-
-
-
-
-
-  <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="modal-{{object.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -14,13 +10,43 @@
         </button>
       </div>
       <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <!-- carousel -->
+        <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+          <!--Indicators-->
+          <ol class="carousel-indicators">
+            {% for images in object.uploadimages_set.all %}
+            <li data-target="#carousel-example-1z" data-slide-to="{{ forloop.counter0 }}"
+              class="{% if forloop.counter0 == 0 %} active {% endif %}"></li>
+            {% endfor %}
+          </ol>
+          <!--/.Indicators-->
+          <!--Slides-->
+          <div class="carousel-inner" role="listbox">
+            {% for images in object.uploadimages_set.all %}
+            <h1 style="color: red;">{{images.image.ur}}</h1>
+            <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
+              <img class="d-block w-100" src="{{images.image.url}}" alt="First slide">
+            </div>
+            {% endfor %}
+
+            <!--Controls-->
+            <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+            <!--/.Controls-->
+          </div>
+          <!-- ================================ -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+
       </div>
     </div>
   </div>
-</div>
-

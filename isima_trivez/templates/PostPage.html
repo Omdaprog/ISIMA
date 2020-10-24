@@ -129,19 +129,20 @@
                             <h5 style="color: white;" class="card-title">{{object.title}}</h5>
                             <p style="color: white;" class="card-text">{{object.description}}.</p>
                             <p class="card-text"><small style="color: white;" >Last updated 3 mins ago</small></p>
-                            <button id="button" type="submit" class="btn "><a href="{% url 'isima_trivez:download' pk=object.pk %}" ></a>Download</button>
+                            <button id="button" type="submit" class="btn "><a href="{% url 'isima_trivez:download' pk=object.pk %}">Download</a></button>
                             <button style="float: right;" id="button" data-toggle="modal" data-target="#modal-{{object.id}}" class="btn">Detail </button>
-
                         </div> 
                     </div>
+                    
                 {%endfor%}
+            </div>
         </div>
-
-        {% include 'Detail-page.html' %}
-
     </div>
+    
+        
+    
 
-
+    
 </div>
 
 
