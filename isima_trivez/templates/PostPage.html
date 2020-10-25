@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block extra_head %}
 <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
 {% endblock %}
 
 {% block style %}
@@ -121,8 +124,6 @@
             <div class="d-flex align-content-stretch justify-content-between flex-wrap">
                 {% for object in object_list %}
                     <div style="margin-right: 10px; margin-top: 50px; width: 30%;" class=" card">
-
-                        
                         <img class="card-img-top" src="{{object.uploadimages_set.first.image.url}}" alt="Card image cap">
                         
                         <div class="card-body">
@@ -131,6 +132,43 @@
                             <p class="card-text"><small style="color: white;" >Last updated 3 mins ago</small></p>
                             <button id="button" type="submit" class="btn "><a href="{% url 'isima_trivez:download' pk=object.pk %}">Download</a></button>
                             <button style="float: right;" id="button" data-toggle="modal" data-target="#modal-{{object.id}}" class="btn">Detail </button>
+                            
+                              
+                            <div class="modal fade" id="modal-{{object.id}}">
+                                <div class="modal-dialog">
+                                	<div class="modal-content container2">
+                                		<div class="modal-header" style="background:#FCAB07">
+                                            <h5 class="modal-title" id="modalName"></h5>
+                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                        </div>
+                                        <div class="modal-body" style="background:#333">
+                                            <!--================== carousel ===============  https://github.com/raszidzie/Multiple-Images-Django-Tutorial/blob/master/templates/detail.html-->
+
+                                            
+
+
+                                            {% include 'Detail-page.html' %}
+
+
+
+
+
+
+
+                                            <!--================== end of carousel =============== -->
+                                        </div>
+                                        <div class="modal-footer" style="background:#333">
+                                            <button type="button" class="btn" style="background:#FCAB07;" data-toggle="modal" data-target="#edit-modal-{{ object.id }}">Edit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
                         </div> 
                     </div>
                     
@@ -149,3 +187,8 @@
 
 
 {% endblock content %}
+
+
+{% block extra_scripts %}
+
+    {% endblock extra_scripts %}

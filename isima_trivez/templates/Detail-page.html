@@ -1,52 +1,73 @@
-<!-- Modal -->
-<div class="modal fade" id="modal-{{object.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- carousel -->
-        <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
-          <!--Indicators-->
-          <ol class="carousel-indicators">
-            {% for images in object.uploadimages_set.all %}
-            <li data-target="#carousel-example-1z" data-slide-to="{{ forloop.counter0 }}"
-              class="{% if forloop.counter0 == 0 %} active {% endif %}"></li>
-            {% endfor %}
-          </ol>
-          <!--/.Indicators-->
-          <!--Slides-->
-          <div class="carousel-inner" role="listbox">
-            {% for images in object.uploadimages_set.all %}
-            <h1 style="color: red;">{{images.image.ur}}</h1>
-            <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
-              <img class="d-block w-100" src="{{images.image.url}}" alt="First slide">
-            </div>
-            {% endfor %}
-
-            <!--Controls-->
-            <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-            <!--/.Controls-->
+<div class="section" id="app">
+  <div class="columns">
+      <div class="column is-4">
+          <div class="card">
+              <div class="card-content">
+                  <div class="card-carousel">
+                      <div class="card-img">
+                          <img :src="currentImage" alt="">
+                          <div class="actions">
+                              <span @click="prevImage" class="prev">
+                                  <i class="fas fa-chevron-left"></i>
+                              </span>
+                              <span @click="nextImage" class="next">
+                                  <i class="fas fa-chevron-right"></i>
+                              </span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
           </div>
-          <!-- ================================ -->
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-
       </div>
-    </div>
   </div>
+</div>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+<script>
+    var app = new Vue({
+          el: '#app',
+          data() {
+              return {
+                  images: [
+
+                      
+                    {% for obj in object.uploadimages_set.all %}
+                        {
+                            id: '{{ forloop.counter0 }}',
+                            big: '{{ obj.image.url }}',
+                        },
+                    {% endfor %}
+                      
+                      
+                  ],
+                  activeImage: 0
+              }
+          },
+          computed: {
+              currentImage() {
+                  return this.images[this.activeImage].big;
+              }
+          },
+          methods: {
+              nextImage() {
+                  var active = this.activeImage + 1;
+                  if(active >= this.images.length) {
+                      active = 0;
+                  }
+                  this.activateImage(active);
+              },
+              prevImage() {
+                  var active = this.activeImage - 1;
+                  if(active < 0) {
+                      active = this.images.length - 1;
+                  }
+                  this.activateImage(active);
+              },
+              activateImage(imageIndex) {
+                  this.activeImage = imageIndex;
+              }
+          }
+      });
+</script>

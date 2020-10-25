@@ -96,7 +96,15 @@ class PostsView(ListView):
         return render(request, self.template_name, {'object_list':object_list})
 
     
-
+#####TODO: try this function to get url images 
+        #views.py
+#       multi_image_instance = MultiImage.objects.get(id=...)
+#       images = multi_image_instance.other_images # this will return a QuerySet
+# ================================================
+        ##templates
+#       {% for image in images %}
+#           <img src={image.image.url} />
+#        {% endfor %}
 
    
 
